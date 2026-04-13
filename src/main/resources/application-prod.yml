@@ -1,0 +1,21 @@
+# ═══════════════════════════════════════════
+# PRODUCTION — tất cả giá trị đọc từ environment variables
+# Không có giá trị thật nào trong file này
+# ═══════════════════════════════════════════
+
+spring:
+  # ── Database ──
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+  # ── Tắt SQL log ──
+  jpa:
+    show-sql: false
+
+# ── Log level ──
+logging:
+  level:
+    com.medbooking: INFO                   # Production chỉ cần INFO, không DEBUG
+    org.hibernate.SQL: WARN                # Không log SQL trên production

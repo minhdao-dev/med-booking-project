@@ -1,0 +1,25 @@
+# ═══════════════════════════════════════════
+# LOCAL DEV — chạy trên máy với Docker Compose
+# Active: ./mvnw spring-boot:run
+# (Spring Boot mặc định đọc profile "default",
+#  mày cần set active profile = dev, xem bên dưới)
+# ═══════════════════════════════════════════
+
+spring:
+  # ── Database ──
+  datasource:
+    url: jdbc:postgresql://localhost:5432/medbooking
+    username: medbooking
+    password: secret                       # Khớp với docker-compose.yml
+    driver-class-name: org.postgresql.Driver
+
+  # ── Hiện SQL queries khi dev ──
+  jpa:
+    show-sql: true
+
+# ── Log level ──
+logging:
+  level:
+    com.medbooking: DEBUG                  # Code của mình → DEBUG (thấy hết)
+    org.hibernate.SQL: DEBUG               # Thấy câu SQL Hibernate generate
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE  # Thấy giá trị parameter trong SQL

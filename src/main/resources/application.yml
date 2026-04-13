@@ -1,0 +1,46 @@
+# ═══════════════════════════════════════════
+# CONFIG CHUNG — apply cho tất cả profiles
+# ═══════════════════════════════════════════
+
+spring:
+  application:
+    name: medbooking
+
+  # ── JPA / Hibernate ──
+  jpa:
+    open-in-view: false                    # Tắt lazy loading ngoài transaction — best practice, tránh bug ngầm
+    hibernate:
+      ddl-auto: validate                   # Chỉ validate schema, KHÔNG tự tạo/sửa bảng — Flyway lo việc đó
+    properties:
+      hibernate:
+        default_schema: app                # Mọi entity mặc định nằm trong schema "app"
+        format_sql: true                   # Format SQL log cho dễ đọc khi debug
+
+  # ── Flyway ──
+  flyway:
+    enabled: true                          # Bật Flyway — tự chạy migration khi app start
+    locations: classpath:db/migration      # Đọc file SQL từ src/main/resources/db/migration/
+    schemas: app                           # Tạo schema "app" nếu chưa có
+    default-schema: app                    # Flyway history table nằm trong schema "app"
+
+  # ── Jackson (JSON) ──
+  jackson:
+    property-naming-strategy: SNAKE_CASE   # Java camelCase → JSON snake_case (fullName → full_name)
+    default-property-inclusion: non_null    # Không trả field null trong response
+    serialization:
+      write-dates-as-timestamps: false     # Date trả về "2026-04-13" thay vì số timestamp
+
+# ── Server ──
+server:
+  error:
+    include-message: always                # Error response hiện message chi tiết
+    include-binding-errors: always         # Validation error hiện field nào sai
+
+# ── Swagger ──
+springdoc:
+  api-docs:
+    path: /api-docs                        # JSON schema tại /api-docs
+  swagger-ui:
+    path: /swagger-ui.html                 # Swagger UI tại /swagger-ui.html
+    operations-sorter: method              # Sort API theo HTTP method (GET trước POST)
+    tags-sorter: alpha                     # Sort tag theo alphabet
