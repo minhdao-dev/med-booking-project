@@ -44,3 +44,20 @@ springdoc:
     path: /swagger-ui.html                 # Swagger UI tại /swagger-ui.html
     operations-sorter: method              # Sort API theo HTTP method (GET trước POST)
     tags-sorter: alpha                     # Sort tag theo alphabet
+
+# ── JWT RSA Keys ──
+rsa:
+  private-key: classpath:certs/private.pem
+  public-key: classpath:certs/public.pem
+
+app:
+  jwt:
+    access-token-expiry-minutes: 15
+    refresh-token-expiry-days: 7
+  cookie:
+    secure: false  # production: true (HTTPS)
+  booking:
+    pending-expiry-minutes: 30
+    min-hours-before-cancel: 2
+    max-pending-per-patient: 3
+    slot-generation-days-ahead: 7

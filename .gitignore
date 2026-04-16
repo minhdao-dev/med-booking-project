@@ -36,3 +36,6 @@ build/
 .env
 *.env.local
 application-secret.yml
+
+# JWT Keys
+src/main/resources/certs/
