@@ -19,3 +19,7 @@ logging:
   level:
     com.medbooking: INFO                   # Production chỉ cần INFO, không DEBUG
     org.hibernate.SQL: WARN                # Không log SQL trên production
+
+app:
+  cookie:
+    secure: true  # production luôn HTTPS
