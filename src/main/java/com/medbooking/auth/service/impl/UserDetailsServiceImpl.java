@@ -1,4 +1,4 @@
-package com.medbooking.auth.service;
+package com.medbooking.auth.service.impl;
 
 import com.medbooking.user.entity.User;
 import com.medbooking.user.repository.UserRepository;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MyUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
