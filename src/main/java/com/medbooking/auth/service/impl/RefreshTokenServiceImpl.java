@@ -3,6 +3,7 @@ package com.medbooking.auth.service.impl;
 import com.medbooking.auth.entity.RefreshToken;
 import com.medbooking.auth.repository.RefreshTokenRepository;
 import com.medbooking.auth.service.RefreshTokenService;
+import com.medbooking.auth.service.TokenFamilyRevoker;
 import com.medbooking.common.exception.UnauthorizedException;
 import com.medbooking.user.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.UUID;
 public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     private final RefreshTokenRepository refreshTokenRepository;
+    private final TokenFamilyRevoker tokenFamilyRevoker;
 
     @Value("${app.jwt.refresh-token-expiry-days:7}")
     private long refreshTokenExpiryDays;
@@ -43,7 +45,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
             log.warn("REFRESH TOKEN REUSE DETECTED — user: {}, family: {}. Revoking entire family.",
                     userId, familyId);
 
-            refreshTokenRepository.revokeAllByFamilyId(familyId);
+            tokenFamilyRevoker.revokeFamily(familyId);
 
             throw new UnauthorizedException("Xác thực thất bại");
         }
