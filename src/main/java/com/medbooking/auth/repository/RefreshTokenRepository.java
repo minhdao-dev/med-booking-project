@@ -15,11 +15,11 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long
 
     Optional<RefreshToken> findByTokenAndIsRevokedFalse(String token);
 
-    @Modifying
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query("UPDATE RefreshToken rt SET rt.isRevoked = true WHERE rt.user.id = :userId AND rt.isRevoked = false")
     void revokeAllByUserId(@Param("userId") UUID userId);
 
-    @Modifying
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query("UPDATE RefreshToken rt SET rt.isRevoked = true WHERE rt.familyId = :familyId AND rt.isRevoked = false")
     void revokeAllByFamilyId(@Param("familyId") UUID familyId);
 }
